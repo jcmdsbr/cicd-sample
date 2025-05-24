@@ -1,5 +1,6 @@
 # IFSP API - Name Analysis Service
 
+
 ![CI/CD](https://github.com/jcmdsbr/cicd-sample/actions/workflows/pipeline.yaml/badge.svg)
 
 An API service that provides cultural and linguistic analysis of names using OpenAI's GPT model. This project is built with .NET 9.0 and follows cloud-native principles with Docker containerization.
