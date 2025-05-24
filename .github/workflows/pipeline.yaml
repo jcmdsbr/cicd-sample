@@ -99,7 +99,7 @@ jobs:
 
       - name: "Update Summary"
         run: |
-          echo "### 🚀 Deploy Concluído" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Deploying completed" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Image verified in Container Registry:** \`jcmds/ifsp-poc:${{ github.run_number }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
