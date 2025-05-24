@@ -74,7 +74,7 @@ jobs:
           docker tag jcmds/ifsp-poc:${{ github.run_number }} jcmds/ifsp-poc:latest
           docker push  jcmds/ifsp-poc:latest
   deploy:
-    name: Mock Deploy Container
+    name: Deploying C
     runs-on: ubuntu-latest
     needs: [docker-build, docker-push]
     steps:
@@ -88,3 +88,18 @@ jobs:
         run: |
           docker pull  jcmds/ifsp-poc:${{ github.run_number }}
           docker image ls
+
+      - name: "📝 Atualizar Resumo do Job com Verificação de Pull"
+        run: |
+          echo "### 🚀 'Deploy' Concluída" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Imagem Verificada no Registry:** \`jcmds/ifsp-poc:${{ github.run_number }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ A imagem foi **puxada com sucesso** do Docker Hub como parte de deploy. Isso confirma que a imagem está acessível no registry após o push." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "#### Detalhes da Imagem Puxada (Docker Inspect)" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
+          cat image_inspect.json >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY # Adiciona uma linha em branco antes do próximo ```
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "Resumo do Job atualizado com sucesso."          
