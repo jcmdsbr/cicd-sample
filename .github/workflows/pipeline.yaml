@@ -23,7 +23,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up the date and revision tag
-        id: vars
         run: |
           DATE_TAG=$(date +'%Y%m%d')
           REVISION_TAG=$(cat REVISION_TAG || echo "0")
@@ -41,15 +40,13 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           
       - name: Run Build Container
-        id: push
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./src
           load: true
           tags: |
              ${{ secrets.DOCKER_USERNAME }}/ifsp-poc:${{ env.TAG }}
              ${{ secrets.DOCKER_USERNAME }}/ifsp-poc:latest
-          platforms: linux/amd64
 
       - name: Save Container .tar
         run: docker save --output ${{ secrets.DOCKER_USERNAME }}/ifsp-poc.tar ${{ secrets.DOCKER_USERNAME }}/ifsp-poc:${{ env.TAG }}
