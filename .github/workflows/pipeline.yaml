@@ -38,7 +38,6 @@ jobs:
           load: true
           tags: |
              jcmds/ifsp-poc:${{ github.run_number }}
-             jcmds/ifsp-poc:latest
 
       - name: Save Container .tar
         run: docker save --output jcmds-ifsp-poc.tar jcmds/ifsp-poc:${{ github.run_number }}
