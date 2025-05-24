@@ -79,7 +79,7 @@ jobs:
 
       - name: Push image
         run: |
-          docker push  jcmds/ifsp-poc:backend-${{ env.TAG }}
+          docker push  jcmds/ifsp-poc:${{ env.TAG }}
           docker push  jcmds/ifsp-poc:latest
 
 #   deploy-azure:
