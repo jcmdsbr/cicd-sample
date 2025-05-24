@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ifsp.Api", "Ifsp.Api\Ifsp.Api.csproj", "{7DC9731F-06A5-48DC-B461-9A9731E4DA39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98CCD160-CE24-4361-B0FF-0123571C87E5}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7DC9731F-06A5-48DC-B461-9A9731E4DA39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DC9731F-06A5-48DC-B461-9A9731E4DA39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DC9731F-06A5-48DC-B461-9A9731E4DA39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DC9731F-06A5-48DC-B461-9A9731E4DA39}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

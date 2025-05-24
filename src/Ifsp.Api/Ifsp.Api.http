@@ -1,0 +1,6 @@
+@Ifsp.Api_HostAddress = http://localhost:5136
+
+GET {{Ifsp.Api_HostAddress}}/v1/meaning-name/jean/
+Accept: application/json
+
+###
