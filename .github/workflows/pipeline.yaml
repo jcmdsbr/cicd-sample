@@ -42,7 +42,7 @@ jobs:
       - name: Run Build Container
         uses: docker/build-push-action@v6
         with:
-          context: ./src/Ifsp.Api
+          context: ./src
           load: true
           tags: |
              ${{ secrets.DOCKER_USERNAME }}/ifsp-poc:${{ env.TAG }}
