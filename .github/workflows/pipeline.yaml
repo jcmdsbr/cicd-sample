@@ -49,13 +49,13 @@ jobs:
              jcmds/ifsp-poc:latest
 
       - name: Save Container .tar
-        run: docker save --output jcmds/ifsp-poc.tar jcmds/ifsp-poc:latest
+        run: docker save --output jcmds-ifsp-poc.tar jcmds/ifsp-poc:latest
 
       - name: Drop Container in artifact
         uses: actions/upload-artifact@v4
         with:
-          name: jcmds/ifsp-poc-artifact
-          path: jcmds/ifsp-poc.tar
+          name: jcmds-ifsp-poc-artifact
+          path: jcmds-ifsp-poc.tar
           retention-days: 1
 
   docker-push:
@@ -66,10 +66,10 @@ jobs:
       - name: Get the artifact
         uses: actions/download-artifact@v4
         with:
-          name: jcmbds/ifsp-poc-artifact
+          name: jcmbds-ifsp-poc-artifact
 
       - name: Load Container image
-        run: docker load --input jcmbds/ifsp-poc.tar
+        run: docker load --input jcmbds-ifsp-poc.tar
 
       - name: Login in Container Registry
         uses: docker/login-action@v3
