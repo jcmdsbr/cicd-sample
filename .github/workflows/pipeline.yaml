@@ -66,21 +66,21 @@ jobs:
       - name: Get the artifact
         uses: actions/download-artifact@v4
         with:
-          name: ${{ secrets.DOCKER_USERNAME }}/ifsp-poc-artifact
+          name: jcmbds/ifsp-poc-artifact
 
       - name: Load Container image
-        run: docker load --input ${{ secrets.DOCKER_USERNAME }}/ifsp-poc.tar
+        run: docker load --input jcmbds/ifsp-poc.tar
 
       - name: Login in Container Registry
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: jcmdbs
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push image
         run: |
-          docker push  ${{ secrets.DOCKER_USERNAME }}/ifsp-poc:backend-${{ env.TAG }}
-          docker push  ${{ secrets.DOCKER_USERNAME }}/ifsp-poc:latest
+          docker push  jcmdbs/ifsp-poc:backend-${{ env.TAG }}
+          docker push  jcmdbs/ifsp-poc:latest
 
 #   deploy-azure:
 #     name: Deploy no Azure Web App
