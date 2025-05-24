@@ -76,7 +76,7 @@ jobs:
   deploy:
     name: Mock Deploy Container
     runs-on: ubuntu-latest
-    needs: docker-build
+    needs: [docker-build, docker-push]
     steps:
       - name: Log in to Container Registry
         uses: docker/login-action@v3
