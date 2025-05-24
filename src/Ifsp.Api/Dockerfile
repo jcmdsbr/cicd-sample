@@ -8,8 +8,8 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Ifsp.Api/Ifsp.Api.csproj", "Ifsp.Api/"]
-RUN dotnet restore "Ifsp.Api/Ifsp.Api.csproj"
+COPY ["Ifsp.Api.csproj", "Ifsp.Api/"]
+RUN dotnet restore "Ifsp.Api.csproj"
 COPY . .
 WORKDIR "/src/Ifsp.Api"
 RUN dotnet build "Ifsp.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
