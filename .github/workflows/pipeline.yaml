@@ -36,7 +36,7 @@ jobs:
       - name: Log in to Container Registry
         uses: docker/login-action@v3
         with:
-          username: jcmbds
+          username: jcmds
           password: ${{ secrets.DOCKER_PASSWORD }}
           
       - name: Run Build Container
@@ -45,17 +45,17 @@ jobs:
           context: ./src
           load: true
           tags: |
-             jcmbds/ifsp-poc:${{ env.TAG }}
-             jcmbds/ifsp-poc:latest
+             jcmds/ifsp-poc:${{ env.TAG }}
+             jcmds/ifsp-poc:latest
 
       - name: Save Container .tar
-        run: docker save --output jcmbds/ifsp-poc.tar jcmbds/ifsp-poc:latest
+        run: docker save --output jcmds/ifsp-poc.tar jcmds/ifsp-poc:latest
 
       - name: Drop Container in artifact
         uses: actions/upload-artifact@v4
         with:
-          name: jcmbds/ifsp-poc-artifact
-          path: jcmbds/ifsp-poc.tar
+          name: jcmds/ifsp-poc-artifact
+          path: jcmds/ifsp-poc.tar
           retention-days: 1
 
   docker-push:
@@ -74,13 +74,13 @@ jobs:
       - name: Login in Container Registry
         uses: docker/login-action@v3
         with:
-          username: jcmdbs
+          username: jcmds
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push image
         run: |
-          docker push  jcmdbs/ifsp-poc:backend-${{ env.TAG }}
-          docker push  jcmdbs/ifsp-poc:latest
+          docker push  jcmds/ifsp-poc:backend-${{ env.TAG }}
+          docker push  jcmds/ifsp-poc:latest
 
 #   deploy-azure:
 #     name: Deploy no Azure Web App
