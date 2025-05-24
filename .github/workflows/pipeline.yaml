@@ -66,10 +66,10 @@ jobs:
       - name: Get the artifact
         uses: actions/download-artifact@v4
         with:
-          name: jcmbds-ifsp-poc-artifact
+          name: jcmds-ifsp-poc-artifact
 
       - name: Load Container image
-        run: docker load --input jcmbds-ifsp-poc.tar
+        run: docker load --input jcmds-ifsp-poc.tar
 
       - name: Login in Container Registry
         uses: docker/login-action@v3
