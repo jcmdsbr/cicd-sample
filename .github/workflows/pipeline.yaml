@@ -21,15 +21,7 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
-
-      - name: Set up the date and revision tag
-        run: |
-          DATE_TAG=$(date +'%Y%m%d')
-          REVISION_TAG=$(cat REVISION_TAG || echo "0")
-          REVISION_TAG=$((REVISION_TAG + 1))
-          echo "${REVISION_TAG}" > REVISION_TAG
-          echo "TAG=${DATE_TAG}.${REVISION_TAG}" >> $GITHUB_ENV
-
+        
       - name: Set up Docker Build
         uses: docker/setup-buildx-action@v3
       
@@ -45,11 +37,11 @@ jobs:
           context: ./src
           load: true
           tags: |
-             jcmds/ifsp-poc:${{ env.TAG }}
+             jcmds/ifsp-poc:${{ github.run_number }}
              jcmds/ifsp-poc:latest
 
       - name: Save Container .tar
-        run: docker save --output jcmds-ifsp-poc.tar jcmds/ifsp-poc:latest
+        run: docker save --output jcmds-ifsp-poc.tar jcmds/ifsp-poc:${{ github.run_number }}
 
       - name: Drop Container in artifact
         uses: actions/upload-artifact@v4
@@ -79,7 +71,8 @@ jobs:
 
       - name: Push image
         run: |
-          docker push  jcmds/ifsp-poc:${{ env.TAG }}
+          docker push  jcmds/ifsp-poc:${{ github.run_number }}
+          docker tag jcmds/ifsp-poc:${{ github.run_number }} jcmds/ifsp-poc:latest
           docker push  jcmds/ifsp-poc:latest
 
 #   deploy-azure:
@@ -96,7 +89,7 @@ jobs:
 #         uses: azure/webapps-deploy@v3
 #         with:
 #           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-#           images: ${{ needs.docker-build.outputs.image_name_tagged_sha }} 
+#           images: jcmds/ifsp-poc:${{ env.TAG }} 
 
 #       - name: Logout do Azure
 #         if: always() # Garante que o logout ocorra mesmo se o deploy falhar
