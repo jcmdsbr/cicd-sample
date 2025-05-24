@@ -9,14 +9,14 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Ifsp.Api.csproj", "Ifsp.Api/"]
-RUN dotnet restore "Ifsp.Api.csproj"
+RUN dotnet restore "Ifsp.Api/Ifsp.Api.csproj"
 COPY . .
 WORKDIR "/src/Ifsp.Api"
-RUN dotnet build "Ifsp.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "Ifsp.Api/Ifsp.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "Ifsp.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Ifsp.Api/Ifsp.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
