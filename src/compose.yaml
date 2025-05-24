@@ -3,7 +3,6 @@
     image: ifsp.api
     build:
       context: .
-      dockerfile: Ifsp.Api/Dockerfile
     ports:
       - "8080:80"
     environment:
