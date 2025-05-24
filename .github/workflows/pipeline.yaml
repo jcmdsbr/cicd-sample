@@ -10,7 +10,7 @@ env:
   AZURE_WEBAPP_NAME: 'webapp-ifsp-poc'
 
 jobs:
-  docker-build:
+  container-build:
     name: Building Container
     runs-on: ubuntu-latest
     permissions:
@@ -49,10 +49,10 @@ jobs:
           path: jcmds-ifsp-poc.tar
           retention-days: 1
 
-  docker-push:
-    name: Pushing Container
+  container-push:
+    name: Pushing Container into Registry
     runs-on: ubuntu-latest
-    needs: docker-build
+    needs: container-build
     steps:
       - name: Get the artifact
         uses: actions/download-artifact@v4
@@ -73,10 +73,18 @@ jobs:
           docker push  jcmds/ifsp-poc:${{ github.run_number }}
           docker tag jcmds/ifsp-poc:${{ github.run_number }} jcmds/ifsp-poc:latest
           docker push  jcmds/ifsp-poc:latest
+
+      - name: "Update Summary"
+        run: |
+          echo "### 🚀 Pushing completed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Image created successfully:** \`jcmds/ifsp-poc:${{ github.run_number }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ 'Push into Registry' **successfully completed** " >> $GITHUB_STEP_SUMMARY          
   deploy:
-    name: Deploying C
+    name: Deploying Container
     runs-on: ubuntu-latest
-    needs: [docker-build, docker-push]
+    needs: [container-build, container-push]
     steps:
       - name: Log in to Container Registry
         uses: docker/login-action@v3
@@ -89,17 +97,10 @@ jobs:
           docker pull  jcmds/ifsp-poc:${{ github.run_number }}
           docker image ls
 
-      - name: "📝 Atualizar Resumo do Job com Verificação de Pull"
+      - name: "Update Summary"
         run: |
-          echo "### 🚀 'Deploy' Concluída" >> $GITHUB_STEP_SUMMARY
+          echo "### 🚀 Deploy Concluído" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Imagem Verificada no Registry:** \`jcmds/ifsp-poc:${{ github.run_number }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "**Image verified in Container Registry:** \`jcmds/ifsp-poc:${{ github.run_number }}\`" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "✅ A imagem foi **puxada com sucesso** do Docker Hub como parte de deploy. Isso confirma que a imagem está acessível no registry após o push." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "#### Detalhes da Imagem Puxada (Docker Inspect)" >> $GITHUB_STEP_SUMMARY
-          echo "\`\`\`json" >> $GITHUB_STEP_SUMMARY
-          cat image_inspect.json >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY # Adiciona uma linha em branco antes do próximo ```
-          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
-          echo "Resumo do Job atualizado com sucesso."          
+          echo "✅ 'Deploy' **successfully completed** " >> $GITHUB_STEP_SUMMARY
